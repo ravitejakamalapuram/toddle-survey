@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/ravitejakamalapuram/toddle-survey/issues"
   },
-  "homepage": "https://github.com/ravitejakamalapuram/toddle-survey#readme"
+  "homepage": "https://github.com/ravitejakamalapuram/toddle-survey#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^14.7.0",
+    "sqlite3": "^5.0.0"
+  }
 }
