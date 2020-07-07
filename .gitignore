@@ -4,6 +4,7 @@
 /config/app.config.js
 /config/app.dev.config.js
 /config/app.prod.config.js
+*.db
 
 # compiled output
 /dist

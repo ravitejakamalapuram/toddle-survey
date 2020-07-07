@@ -9,7 +9,6 @@ const timeout = require("connect-timeout");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 
-
 let app = express();
 app.use(cors());
 app.use(timeout("300s"));
