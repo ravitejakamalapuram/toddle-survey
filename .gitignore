@@ -1,9 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # config file 
-/config/app.config.js
-/config/app.dev.config.js
-/config/app.prod.config.js
+# /config/app.config.js
 *.db
 
 # compiled output

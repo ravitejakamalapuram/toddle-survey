@@ -3,7 +3,10 @@ var secretKey = require('../config/app.config.js')._secret;
 
 function getJwtToken(data, expiresIn = '6h') {
     delete data.exp;
-    return jwt.sign(data, secretKey, { expiresIn: expiresIn });
+    return jwt.sign(data, secretKey,
+        /* if expiry is required un comment below */
+        // { expiresIn: expiresIn }
+    );
 }
 
 function isAuthenticated(req, res, next) {
@@ -14,13 +17,13 @@ function isAuthenticated(req, res, next) {
             res.status(500).send({ "error": "Session Expired", "msg": err.message });
         } else {
             // IF the token is about to expire send new token
-            var current_time = ((new Date()).getTime()) / 1000;
-            if (decoded.exp - (current_time) < 14400) {
-                delete decoded.iat;
-                delete decoded.exp;
-                let new_token = getJwtToken(decoded, '6h');
-                res.cookie("token", new_token, { sameSite: true, overwrite: true });
-            }
+            // var current_time = ((new Date()).getTime()) / 1000;
+            // if (decoded.exp - (current_time) < 14400) {
+            //     delete decoded.iat;
+            //     delete decoded.exp;
+            //     let new_token = getJwtToken(decoded, '6h');
+            //     res.cookie("token", new_token, { sameSite: true, overwrite: true });
+            // }
             return next();
         }
     });

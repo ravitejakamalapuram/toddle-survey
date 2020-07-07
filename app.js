@@ -7,11 +7,10 @@ const noCache = require('nocache');
 const bb = require("connect-busboy");
 const timeout = require("connect-timeout");
 const cors = require("cors");
-const fileUpload = require("express-fileupload");
 
 let app = express();
 app.use(cors());
-app.use(timeout("300s"));
+app.use(timeout("10s"));
 app.use(compression());
 app.use(helmet());
 app.use(noCache());
@@ -19,7 +18,6 @@ app.use(bb());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(fileUpload());
 app.use(express.static(path.join(__dirname, "../www")));
 
 let _auth = require("./middlewares/auth");
