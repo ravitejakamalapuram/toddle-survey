@@ -1,21 +1,25 @@
 const sqlite3 = require('sqlite3').verbose();
-const database = new sqlite3.Database("./toddle.db");
+const db = new sqlite3.Database('toddle.db');
 
 const init_tables = () => {
-    const query = `
-        CREATE TABLE IF NOT EXISTS users (username text PRIMARY KEY UNIQUE, password text);
-        INSERT INTO users VALUES('username1','password1');
-        INSERT INTO users VALUES('username2','password2');
-        INSERT INTO users VALUES('username3','password3');
-        INSERT INTO users VALUES('username4','password4');
-        INSERT INTO users VALUES('username5','password5');
+    db.serialize(function () {
+        // surveys db
+        db.run("CREATE TABLE IF NOT EXISTS survey (username text PRIMARY KEY UNIQUE, password text)");
 
-        CREATE TABLE IF NOT EXISTS surveys (username text PRIMARY KEY UNIQUE, password text);`;
-
-    return database.run(query);
+        // users db
+        db.run("CREATE TABLE IF NOT EXISTS users (username text PRIMARY KEY UNIQUE, password text)");
+        for (let i = 1; i <= 10; i++) {
+            db.run(`INSERT INTO users VALUES('username${i}','password${i}');`, function (err, res) { });
+        }
+    });
 }
+
 init_tables();
 
+// db.all("SELECT * FROM users", function(err, res){
+//     console.log(arguments)
+// });
+
 module.exports = {
-    sqlite: database
+    sqlite: db
 };

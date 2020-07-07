@@ -16,7 +16,7 @@ function isAuthenticated(req, res, next) {
         if (err) {
             res.status(500).send({ "error": "Session Expired", "msg": err.message });
         } else {
-            // IF the token is about to expire send new token
+            /* IF the token is about to expire send new token */
             // var current_time = ((new Date()).getTime()) / 1000;
             // if (decoded.exp - (current_time) < 14400) {
             //     delete decoded.iat;

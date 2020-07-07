@@ -1,8 +1,10 @@
 const router = require("express").Router();
-const db = require("../utils/sqlite");
+const db = require("../utils/sqlite").sqlite;
+let _auth = require("../middlewares/auth")
 
 router.post("/Authentication", function (req, res) {
-    db.run(`SELECT username FROM users WHERE username = $username AND password = $password`, {
+    /* placeholders are used in order to avoid SQL injection attcks */
+    db.all(`SELECT * FROM users WHERE username = $username AND password = $password`, {
         $username: req.body.username,
         $password: req.body.password
     }, function (err, response) {
