@@ -9,7 +9,9 @@ router.post("/Authentication", function (req, res) {
         $password: req.body.password
     }, function (err, response) {
         if (err) { return res.status(500).send({ msg: "Erro with Login Api!", err: err }); }
-        if (response && Object.keys(response).length > 0) {
+
+        // check for only one result record for additional security
+        if (response && response.length == 1) {
             let token = _auth.getJwtToken({ "username": response.username });
             /* token ios sent over both cokkie and as a response for flexibility */
             res.cookie("token", token, { sameSite: true, overwrite: true }).send({ "token": token });
