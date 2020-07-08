@@ -20,14 +20,14 @@ Survey Assumptions
 <!-- Ex rest requests -->
 1. Authentication
 
-curl --location --request POST 'localhost:3000/Authentication' \
+curl --location --request POST '13.233.29.11:3000/Authentication' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTQyMTk3MzF9.WDk2qotpkbEVgZuD_1mYoi55QgDJTrZjtQeJ9jPKcHI' \
 --data-raw '{"username":"username1", "password": "password1"}'
 
 2. Thumbnail
 
-localhost:3000/Thumbnail?url=https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg
+13.233.29.11:3000/Thumbnail?url=https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg
 
 
 <!-- Ex queries & mutations (GraphQL)-->
