@@ -21,14 +21,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "../www")));
 
 let _auth = require("./middlewares/auth");
-let indexRouter = require("./routes/index");
-let surveRouter = require("./routes/survey");
 
 // index routes are the routes with no authentication required
-app.use("/", indexRouter);
+app.use("/", require("./routes/index"));
 
 // All sub-sequent routes needs to be authenticated 
 app.use(_auth.isAuthenticated);
-app.use("/", surveRouter);
+app.use("/", require("./routes/survey"));
+app.use("/", require("./routes/general"));
 
 module.exports = app;
