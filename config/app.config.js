@@ -1,5 +1,5 @@
 const servconfig = {
-    "port": 80,
+    "port": 3000,
 };
 const jwtSecretKey = "ToDdlE@2020";
 

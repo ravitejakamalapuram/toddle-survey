@@ -27,7 +27,7 @@ app.use("/", require("./routes/auth"));
 app.use("/", require("./routes/general"));
 
 // All sub-sequent routes needs to be authenticated using a middle-ware
-// app.use(require("./middlewares/auth").isAuthenticated);
+app.use(require("./middlewares/auth").isAuthenticated);
 app.use("/", require("./routes/survey"));
 
 module.exports = app;
