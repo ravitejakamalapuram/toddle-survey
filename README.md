@@ -14,21 +14,50 @@ Survey Assumptions
 
 1. Each Survey will have a Unique ID -  Not handled in the code
 2. Any Two Questions in a same survey/different survey can be same
-3. Transactions aren't taken care - Meaning if one question insertion fails others will be inserted without an error
+3. create survey - can take multiple surveys at a time
 
 
+<!-- Ex rest requests -->
+1. Authentication
 
-<!-- Ex queries & mutations -->
+curl --location --request POST 'localhost:3000/Authentication' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1OTQyMTk3MzF9.WDk2qotpkbEVgZuD_1mYoi55QgDJTrZjtQeJ9jPKcHI' \
+--data-raw '{"username":"username1", "password": "password1"}'
+
+2. Thumbnail
+
+localhost:3000/Thumbnail?url=https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg
+
+
+<!-- Ex queries & mutations (GraphQL)-->
+
+
+1. create survey
+
 mutation {
-  create_survey(questions_list: [{survey_id: "test_survey", question: "what is the name"}]) 
+  create_survey(questions_list: [{survey_id: "test_survey", question: "Is the current year 2020?"}]) 
 }
 
+
+2. take survey
+
+mutation {
+  take_survey(answers_list: [{survey_id: "test_survey", question: "Is the current year 2020", option_chosen: false}]) 
+}
+
+
+3. show survey
 
 {
   survey_result(survey_id: "survey_5") {
     survey_id
     question
-    true
-    false
+    true_count
+    false_count
   }
 }
+
+<!-- Hilights -->
+1. Thumbnail Api is developed in such a way that each request to process an image is forked. Hence heavy parallel requests it can handle
+2. Transactions are used to make sure if a survey is added or taken all the entries are updated accordingly

@@ -9,8 +9,8 @@ const SurveyModel = new graphql.GraphQLObjectType({
     fields: {
         survey_id: { type: graphql.GraphQLID },
         question: { type: graphql.GraphQLString },
-        true: { type: graphql.GraphQLInt },
-        false: { type: graphql.GraphQLInt }
+        true_count: { type: graphql.GraphQLInt },
+        false_count: { type: graphql.GraphQLInt }
     }
 });
 
@@ -19,6 +19,15 @@ const survey_input = new graphql.GraphQLInputObjectType({
     fields: {
         survey_id: { type: graphql.GraphQLID },
         question: { type: graphql.GraphQLString }
+    }
+});
+
+const survey_taken = new graphql.GraphQLInputObjectType({
+    name: "survey_taken",
+    fields: {
+        survey_id: { type: graphql.GraphQLID },
+        question: { type: graphql.GraphQLString },
+        option_chosen: { type: graphql.GraphQLBoolean }
     }
 });
 
@@ -66,7 +75,34 @@ let mutationType = new graphql.GraphQLObjectType({
                             if (err) {
                                 reject(err);
                             }
-                            resolve(`SURVEY updated SUCCESSFULLY`);
+                            resolve(`Survey Added Successfully`);
+                        });
+                    });
+
+                });
+            }
+        },
+        take_survey: {
+            type: graphql.GraphQLString,
+            args: {
+                answers_list: {
+                    type: graphql.GraphQLList(survey_taken)
+                }
+            },
+            resolve: (root, args) => {
+                console.log(args)
+                return new Promise((resolve, reject) => {
+
+                    db.serialize(function () {
+                        db.run('BEGIN EXCLUSIVE TRANSACTION;');
+                        args.answers_list.forEach(el => {
+                            db.run(`UPDATE surveys SET ${el.option_chosen === true ? "true_count = true_count" : "false_count = false_count"} + 1 WHERE survey_id = '${el.survey_id}' AND question = '${el.question}';`);
+                        });
+                        db.run('COMMIT TRANSACTION;', function (err) {
+                            if (err) {
+                                reject(err);
+                            }
+                            resolve(`Survey Taken Successfully`);
                         });
                     });
 
