@@ -23,7 +23,7 @@
 
 ### Installation
 
-Requires [Node.js](https://nodejs.org/)to be installed.
+Requires [Node.js](https://nodejs.org/) to be installed.
 
 Clone the Repo, Install the dependencies and start the server.
 
