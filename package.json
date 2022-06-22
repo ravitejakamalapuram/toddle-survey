@@ -30,6 +30,6 @@
     "image-thumbnail": "^1.0.9",
     "jsonwebtoken": "^8.5.1",
     "nocache": "^2.1.0",
-    "sqlite3": "^5.0.0"
+    "sqlite3": "^5.0.3"
   }
 }
